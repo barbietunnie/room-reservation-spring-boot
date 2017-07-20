@@ -33,7 +33,9 @@ public class ReservationControllerTest {
 
     @Test
     public void getReservations() throws Exception {
-        Date date = DATE_FORMAT.parse("2017-01-01");
+        String dateStr = "2017-01-01";
+        Date date = DATE_FORMAT.parse(dateStr);
+
         List<RoomReservation> mockReservationList = new ArrayList<>();
         RoomReservation mockRoomReservation = new RoomReservation();
         mockRoomReservation.setLastName("Test");
@@ -46,7 +48,7 @@ public class ReservationControllerTest {
 
         mockReservationList.add(mockRoomReservation);
 
-        given(reservationService.getRoomReservationsForDate(date))
+        given(reservationService.getRoomReservationsForDate(dateStr))
                 .willReturn(mockReservationList);
 
         this.mockMvc.perform(get("/reservations?date=2017-01-01"))

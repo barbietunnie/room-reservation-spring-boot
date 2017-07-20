@@ -18,25 +18,12 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/reservations")
 public class ReservationController {
-    public static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
-
     @Autowired
     private ReservationService reservationService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String getReservations(@RequestParam(name = "date", required = false) String dateStr, Model model) {
-        Date date = null;
-        if(null != dateStr) {
-            try {
-                date = DATE_FORMAT.parse(dateStr);
-            } catch (ParseException e) {
-                date = new Date();
-            }
-        } else {
-            date = new Date();
-        }
-
-        List<RoomReservation> roomReservationList = this.reservationService.getRoomReservationsForDate(date);
+        List<RoomReservation> roomReservationList = this.reservationService.getRoomReservationsForDate(dateStr);
         model.addAttribute("roomReservations", roomReservationList);
 
         return "reservations";
